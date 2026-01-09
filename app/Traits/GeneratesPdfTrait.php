@@ -176,7 +176,8 @@ trait GeneratesPdfTrait
 
         $str = preg_replace('/{(.*?)}/', '', $str);
 
-        $str = preg_replace("/<[^\/>]*>([\s]?)*<\/[^>]*>/", '', $str);
+        // Remove empty HTML tags but preserve <br> tags
+        $str = preg_replace("/<(?!br\s*\/?)[^\/>]*>([\s]?)*<\/(?!br)[^>]*>/", '', $str);
 
         $str = str_replace('<p>', '', $str);
 

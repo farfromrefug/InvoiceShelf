@@ -41,6 +41,14 @@ const props = defineProps({
 })
 
 function onSelectNote(data) {
-  props.store[props.storeProp].notes = '' + data.notes
+  const currentNotes = props.store[props.storeProp].notes || ''
+  const newNotes = data.notes || ''
+  
+  // If there are existing notes, append with a separator
+  if (currentNotes.trim()) {
+    props.store[props.storeProp].notes = currentNotes + '\n\n' + newNotes
+  } else {
+    props.store[props.storeProp].notes = newNotes
+  }
 }
 </script>
