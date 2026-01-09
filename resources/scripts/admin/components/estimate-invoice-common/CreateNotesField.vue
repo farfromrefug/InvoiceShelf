@@ -44,6 +44,11 @@ function onSelectNote(data) {
   const currentNotes = props.store[props.storeProp].notes || ''
   const newNotes = data.notes || ''
   
+  // Only append if new notes have content
+  if (!newNotes.trim()) {
+    return
+  }
+  
   // If there are existing notes, append with a separator
   if (currentNotes.trim()) {
     props.store[props.storeProp].notes = currentNotes + '\n\n' + newNotes
