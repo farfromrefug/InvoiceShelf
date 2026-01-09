@@ -176,9 +176,9 @@ trait GeneratesPdfTrait
 
         $str = preg_replace('/{(.*?)}/', '', $str);
 
-        // Remove empty HTML tags but preserve <br> tags to maintain line breaks
-        // The negative lookahead (?!br\s*\/?) prevents matching <br> tags
-        $str = preg_replace("/<(?!br\s*\/?)[^\/>]*>([\s]?)*<\/(?!br)[^>]*>/", '', $str);
+        // Remove empty HTML paired tags (e.g., <p></p>, <span></span>) but preserve <br> tags
+        // The negative lookahead (?!br[\s\/>]) prevents matching <br>, <br />, or <br/>
+        $str = preg_replace("/<(?!br[\s\/>])[^>]+>\s*<\/[^>]+>/", '', $str);
 
         $str = str_replace('<p>', '', $str);
 
