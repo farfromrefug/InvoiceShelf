@@ -637,7 +637,7 @@ class Invoice extends Model implements HasMedia
 
     public function getNotes()
     {
-        return $this->getFormattedString($this->notes);
+        return $this->getFormattedString($this->notes, false);
     }
 
     public function getEmailString($body)
