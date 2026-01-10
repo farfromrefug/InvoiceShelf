@@ -169,15 +169,19 @@ trait GeneratesPdfTrait
     }
 
     public function getFormattedString($format)
-    {
+	{
+
         $values = array_merge($this->getFieldsArray(), $this->getExtraFields());
 
-        $str = strtr($format, $values);
+        $str = (strtr($format, $values));
 
-        $str = preg_replace('/{(.*?)}/', '', $str);
+ #       $str = preg_replace('/{(.*?)}/', '', $str);
 
-        // Remove all HTML tags
-        $str = preg_replace("/<[^>]*>/", '', $str);
+#        $str = preg_replace("/<[^\/>]*>([\s]?)*<\/[^>]*>/", '', $str);
+
+        $str = str_replace('<p>', '', $str);
+
+        $str = str_replace('</p>', '</br>', $str);
 
         return $str;
     }
