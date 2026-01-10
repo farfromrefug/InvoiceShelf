@@ -172,17 +172,12 @@ trait GeneratesPdfTrait
     {
         $values = array_merge($this->getFieldsArray(), $this->getExtraFields());
 
-        $str = nl2br(strtr($format, $values));
+        $str = strtr($format, $values);
 
         $str = preg_replace('/{(.*?)}/', '', $str);
 
-        // Remove empty HTML paired tags (e.g., <p></p>, <span></span>) but preserve <br> tags
-        // The negative lookahead (?!br[\s\/>]) prevents matching <br>, <br />, or <br/> (case-insensitive)
-        $str = preg_replace("/<(?!br[\s\/>])[^>]+>\s*<\/[^>]+>/i", '', $str);
-
-        $str = str_replace('<p>', '', $str);
-
-        $str = str_replace('</p>', '</br>', $str);
+        // Remove all HTML tags
+        $str = preg_replace("/<[^>]*>/", '', $str);
 
         return $str;
     }
